@@ -1,0 +1,28 @@
+{
+    "name": "webex-meeting-scheduler",
+    "version": "1.0.0",
+    "description": "A professional meeting scheduler with LDAP login and Webex integration.",
+    "main": "src/app.js",
+    "scripts": {
+      "start": "node src/app.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+      "webex",
+      "scheduler",
+      "ldap",
+      "express"
+    ],
+    "author": "Reliance Infrastructure",
+    "license": "MIT",
+    "dependencies": {
+      "axios": "^1.10.0",
+      "cors": "^2.8.5",
+      "dotenv": "^16.4.5",
+      "express": "^5.0.0-beta.2",
+      "jsonwebtoken": "^9.0.2",
+      "ldapjs": "^3.0.7",
+      "path": "^0.12.7"
+    }
+  }
+  

@@ -1,0 +1,211 @@
+/* Paste the entire content of your original styles.css file here */
+/* For brevity, this is a placeholder. You must use your original CSS content. */
+:root {
+    --primary-dark: #002A5C;
+    --primary-medium: #0060B2;
+    --primary-light: #008CFF;
+    --primary-ultralight: #EBF5FF;
+    --neutral-white: #FFFFFF;
+    --neutral-light: #F8F9FA;
+    --neutral-medium: #DEE2E6;
+    --neutral-dark: #6C757D;
+    --neutral-darker: #343A40;
+    --success: #28A745;
+    --error: #DC3545;
+    --warning: #FFC107;
+    --font-family: 'Inter', sans-serif;
+    --border-radius-md: 8px;
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--neutral-darker);
+    background-color: #f0f2f5;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.app-main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.login-container, .scheduler-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.login-card, .card-container {
+    background: var(--neutral-white);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.login-header, .card-header {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--neutral-medium);
+}
+
+.company-logo {
+    max-height: 60px;
+    margin-bottom: 1rem;
+}
+
+.login-title, .card-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.login-subtitle, .card-subtitle {
+    color: var(--neutral-dark);
+}
+
+.login-form, .meeting-form {
+    padding: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.required {
+    color: var(--error);
+}
+
+.form-input, .form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--neutral-medium);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-medium);
+    box-shadow: 0 0 0 3px rgba(0, 96, 178, 0.2);
+}
+
+.password-reset-link {
+    display: block;
+    text-align: right;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    color: var(--primary-medium);
+    text-decoration: none;
+}
+
+.login-actions {
+    margin-top: 2rem;
+}
+
+.login-button, .submit-button, .secondary-button, .availability-button, .update-time-button, .logout-button {
+    padding: 0.875rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    position: relative;
+}
+
+.login-button, .submit-button, .update-time-button {
+    width: 100%;
+    background-color: var(--primary-medium);
+    color: var(--neutral-white);
+}
+
+.login-button:hover, .submit-button:hover, .update-time-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.login-button.loading .button-text, .submit-button.loading .button-text {
+    opacity: 0;
+}
+
+.login-button.loading .loading-spinner, .submit-button.loading .loading-spinner {
+    display: block;
+}
+
+.login-error-panel, .error-panel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 2rem;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.scheduler-header {
+    padding: 1rem 2rem;
+    background: var(--neutral-white);
+    border-bottom: 1px solid var(--neutral-medium);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logout-button {
+    background-color: var(--error);
+    color: white;
+}
+
+.welcome-text {
+    margin-right: 1rem;
+}
+
+.app-footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--primary-dark);
+    color: var(--neutral-light);
+}
