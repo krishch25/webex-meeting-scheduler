@@ -1,211 +1,1486 @@
-/* Paste the entire content of your original styles.css file here */
-/* For brevity, this is a placeholder. You must use your original CSS content. */
+/* Reliance Meeting Scheduler - Complete Styles with Login System */
 :root {
-    --primary-dark: #002A5C;
-    --primary-medium: #0060B2;
-    --primary-light: #008CFF;
-    --primary-ultralight: #EBF5FF;
+    /* Primary Color Palette - Enterprise Blue Theme (Refined for Modern Look) */
+    --primary-dark: #002A5C;      /* Deeper, richer Navy Blue for strong elements/text */
+    --primary-medium: #0060B2;    /* Vibrant Professional Blue for main accents/buttons */
+    --primary-light: #008CFF;     /* Brighter Sky Blue for hover/active states */
+    --primary-ultralight: #EBF5FF; /* Very Light Blue for subtle backgrounds/highlights */
+
+    /* Neutral Colors (Refined for better contrast and warmth) */
     --neutral-white: #FFFFFF;
-    --neutral-light: #F8F9FA;
-    --neutral-medium: #DEE2E6;
-    --neutral-dark: #6C757D;
-    --neutral-darker: #343A40;
-    --success: #28A745;
-    --error: #DC3545;
-    --warning: #FFC107;
-    --font-family: 'Inter', sans-serif;
+    --neutral-light: #F8F9FA;     /* Lightest background */
+    --neutral-medium: #DEE2E6;    /* Borders, dividers */
+    --neutral-dark: #6C757D;      /* Secondary text */
+    --neutral-darker: #343A40;    /* Primary text */
+    --neutral-grey-bg: #F0F2F5;   /* A slightly warmer light grey for app background */
+
+    /* Feedback Colors (Keep as is or adjust to match new blues) */
+    --success: #28A745;           /* Standard Green for success */
+    --error: #DC3545;             /* Error Red */
+    --warning: #FFC107;           /* Warning Yellow */
+
+    /* Typography (Keep as is or adjust for subtle hierarchy) */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;         /* 16px */
+    --font-size-lg: 1.125rem;     /* 18px */
+    --font-size-xl: 1.5rem;       /* For titles */
+    --font-size-xxl: 2rem;        /* For main app titles */
+    --font-size-xxxl: 2.5rem;     /* For very large titles */
+
+    /* Spacing (Refined values) */
+    --space-xs: 0.25rem;          /* 4px */
+    --space-sm: 0.5rem;           /* 8px */
+    --space-md: 1rem;             /* 16px */
+    --space-lg: 1.5rem;           /* 24px */
+    --space-xl: 1rem;             /* 32px */
+    --space-xxl: 1.5rem;            /* 48px */
+    --space-xxxl: 2rem;           /* 64px */
+
+    /* Border Radius */
+    --border-radius-sm: 4px;
     --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-pill: 50px;
+
+    /* Shadows (More modern, layered soft shadows) */
+    --shadow-light: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15); /* For prominent elements like modals */
+
+    /* Transitions */
+    --transition-speed-fast: 0.2s ease-out;
+    --transition-speed-normal: 0.3s ease-in-out;
+    --transition-speed-slow: 0.5s ease;
 }
 
+/* Base Reset */
 *, *::before, *::after {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: var(--font-family);
     color: var(--neutral-darker);
-    background-color: #f0f2f5;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    /* --- GLOBAL BANNER BACKGROUND --- */
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), /* Slightly less dark overlay */
+        url('./assets/RINF1.jpg'); /* Global banner image */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Makes the background fixed relative to the viewport */
+    background-blend-mode: overlay; /* Blends gradient with image */
+    /* -------------------------------- */
 }
 
+/* Modern Single-Page Layout */
 .app-container {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    /* Ensure app-container allows body background to show */
+    background-color: transparent;
 }
 
+/* Main Content Area */
 .app-main {
     flex: 1;
+    padding: var(--space-xxxl) var(--space-md); /* More padding around content */
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 2rem 1rem;
+    align-items: flex-start;
+    background-color: transparent; /* Ensure app-main also doesn't block body background */
 }
 
-.login-container, .scheduler-container {
-    width: 100%;
-    max-width: 500px;
-}
-
-.login-card, .card-container {
-    background: var(--neutral-white);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-}
-
-.login-header, .card-header {
-    padding: 2rem;
+/* Enhanced Header with Gradient (No Banner here anymore) */
+.app-header {
+    background: linear-gradient(150deg, var(--primary-dark) 100%, var(--primary-medium) 100%);
+    color: var(--neutral-white);
+    padding: var(--space-lg) var(--space-xl); /* Adjusted padding for more breathing room */
     text-align: center;
-    border-bottom: 1px solid var(--neutral-medium);
+    box-shadow: var(--shadow-md); /* Subtle shadow */
+    position: relative;
+    z-index: 10; /* Ensure header is above other content */
+    border-bottom: 4px solid var(--primary-light); /* Adds a strong accent line */
+    /* Removed background-image properties from here */
+}
+
+.app-header::before {
+    content: none;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 960px; /* Slightly wider content area */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    gap: var(--space-md); /* Space between logo and text */
 }
 
 .company-logo {
-    max-height: 60px;
-    margin-bottom: 1rem;
+    height: 58px; /* Slightly larger logo */
+    transition: transform var(--transition-speed-normal);
+}
+.company-logo:hover {
+    transform: scale(1.05);
 }
 
-.login-title, .card-title {
-    font-size: 1.75rem;
+.company-name {
+    font-size: var(--font-size-xxxl); /* Larger for prominence */
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Deeper shadow for text */
+    line-height: 1; /* Tighter line height */
+}
+
+.company-tagline {
+    font-size: var(--font-size-sm);
+    font-weight: 300;
+    opacity: 0.9;
+    margin-left: var(--space-xs); /* Align tighter with company name */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.app-title {
+    font-size: var(--font-size-xxl); /* Larger for prominence */
+    font-weight: 600;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-xs);
+    letter-spacing: 1.2px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.app-description {
+    font-size: var(--font-size-md);
+    opacity: 0.98;
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+    max-width: 600px;
+    font-weight: 400;
+}
+
+
+/* LOGIN CONTAINER STYLES - Now Translucent */
+.login-container {
+    width: 100%;
+    max-width: 1600px; /* Wider container to showcase banner */
+    margin: 0 auto; /* Center login container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+
+    /* --- LOGIN CONTAINER BACKGROUND (TRANSLUCENT WHITE TO SHOW GLOBAL BANNER) --- */
+    /* ------------------------------------------------------------------------- */
+
+    border-radius: var(--border-radius-xl); /* Larger border radius for the container */
+    overflow: hidden; /* Important for border-radius with background image */
+    box-shadow: var(--shadow-xl); /* More prominent shadow for the whole login container */
+    position: relative; /* For z-index context */
+}
+
+.login-card {
+    width: 100%;
+    max-width: 480px; /* Slightly wider form for better layout */
+    background: var(--neutral-white);
+    border-radius: var(--border-radius-xl); /* Larger border-radius for a softer look */
+    box-shadow: var(--shadow-lg); /* More prominent shadow for the form */
+    overflow: hidden;
+    border: 1px solid rgba(0, 51, 102, 0.08); /* Subtle border */
+    animation: slideIn 0.6s ease-out forwards; /* Slightly slower and stays */
+    text-align: center;
+    margin: var(--space-xxxl) 0; /* Add vertical margin to center it */
+    z-index: 2; /* Ensure form is above background */
+
+}
+
+.login-header {
+    background: linear-gradient(135deg, var(--primary-ultralight) 0%, var(--neutral-white) 100%);
+    padding: var(--space-xxl) var(--space-xl);
+    text-align: center;
+    border-bottom: 3px solid var(--primary-medium);
+    margin-bottom: var(--space-xl); /* Space below header */
+}
+
+.login-icon {
+    font-size: 3.5rem; /* Larger icon */
+    margin-bottom: var(--space-md);
+    color: var(--primary-medium);
+}
+
+.login-title {
+    font-size: var(--font-size-xxl);
+    font-weight: 700; /* Bolder title */
     color: var(--primary-dark);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-sm);
 }
 
-.login-subtitle, .card-subtitle {
+.login-subtitle {
     color: var(--neutral-dark);
+    font-size: var(--font-size-md);
+    max-width: 350px;
+    margin: 0 auto;
 }
 
-.login-form, .meeting-form {
-    padding: 2rem;
+.login-form {
+    padding: 0 var(--space-xl) var(--space-xl); /* Adjust padding */
 }
 
+.login-actions {
+    text-align: center;
+    margin-top: var(--space-xxl);
+}
+
+.login-button {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+    color: var(--neutral-white);
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--font-size-lg); /* Larger font */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed-normal);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex; /* For spinner alignment */
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.login-button:hover:not(:disabled) {
+    transform: translateY(-3px); /* More pronounced lift */
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-dark) 100%); /* Slightly darker hover */
+}
+
+.login-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--neutral-dark); /* Grey out when disabled */
+}
+
+.password-reset-link {
+    display: block;
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+    color: var(--primary-medium);
+    text-decoration: none;
+    transition: color var(--transition-speed-fast);
+}
+
+.password-reset-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.login-hint {
+    text-align: center;
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--neutral-medium);
+}
+
+.login-hint small {
+    color: var(--neutral-dark);
+    font-style: italic;
+}
+
+.login-error-panel {
+    margin: var(--space-md) var(--space-xl) var(--space-xxl); /* More margin at bottom */
+    padding: var(--space-md);
+    background: linear-gradient(135deg, #FDEAEA 0%, #FEF5F5 100%);
+    border: 2px solid var(--error);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    animation: shake 0.6s ease-in-out; /* Slightly longer shake */
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); } /* More pronounced shake */
+    75% { transform: translateX(8px); }
+}
+
+.error-icon {
+    color: var(--error);
+    font-size: var(--font-size-lg);
+}
+
+.error-text {
+    color: var(--error);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+}
+
+/* SCHEDULER CONTAINER STYLES - Now Translucent */
+.scheduler-container {
+    width: 100%;
+    max-width: 1000px; /* Wider for more content */
+    margin: var(--space-xxl) auto; /* Center scheduler with vertical margin */
+    display: none; /* Hidden by default */
+    border-radius: var(--border-radius-xl); /* Larger radius */
+    box-shadow: var(--shadow-xl); /* More prominent shadow */
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(0, 51, 102, 0.1); /* Subtle border */
+}
+
+.scheduler-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md) var(--space-xl); /* Increased padding */
+    background: var(--neutral-white);
+    border-radius: var(--border-radius-xl); /* Larger radius */
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--neutral-medium); /* Subtle border */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.welcome-text {
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: var(--font-size-lg); /* Slightly larger */
+}
+
+#loggedInUsername {
+    color: var(--primary-medium);
+    font-weight: 700;
+}
+
+.logout-button {
+    background: var(--error);
+    color: var(--neutral-white);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed-fast);
+    box-shadow: var(--shadow-light);
+}
+
+.logout-button:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Enhanced Card Container with More Depth */
+.card-container {
+    width: 100%;
+    background: var(--neutral-white);
+    border-radius: var(--border-radius-xl); /* Larger border-radius */
+    box-shadow: var(--shadow-lg); /* More prominent shadow for the card */
+    overflow: hidden;
+    border: 1px solid rgba(0, 51, 102, 0.1); /* Slightly stronger border */
+    position: relative;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--neutral-light) 0%, var(--neutral-white) 100%);
+    padding: var(--space-xxl) var(--space-xl); /* Increased padding */
+    text-align: center;
+    border-bottom: 3px solid var(--primary-medium);
+    position: relative;
+}
+
+.card-title {
+    font-size: var(--font-size-xxl);
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: var(--space-sm);
+}
+
+.card-subtitle {
+    color: var(--neutral-dark);
+    font-size: var(--font-size-md);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Form Styling */
+.meeting-form {
+    padding: var(--space-xxl) var(--space-xl); /* More internal padding */
+}
+
+.form-section {
+    margin-bottom: var(--space-xxl); /* Increased section spacing */
+    border-bottom: 1px solid var(--neutral-medium); /* Subtle separator */
+    padding-bottom: var(--space-xl); /* Padding above separator */
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: var(--font-size-xl); /* Larger section titles */
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 80px; /* Longer underline */
+    height: 3px; /* Thicker underline */
+    background: var(--primary-medium);
+    border-radius: var(--border-radius-pill); /* Rounded underline */
+}
+
+.section-description {
+    color: var(--neutral-dark);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-lg);
+    font-style: italic;
+}
+
+/* Input Groups */
 .input-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-lg);
+    text-align: left;
 }
 
 .input-label {
     display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--primary-dark);
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-size-md);
 }
 
 .required {
     color: var(--error);
+    font-weight: 600;
+}
+
+.input-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
 }
 
 .form-input, .form-textarea {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--neutral-medium);
-    border-radius: 4px;
-    font-size: 1rem;
+    padding: var(--space-md) var(--space-lg); /* More horizontal padding */
+    border: 2px solid var(--neutral-medium);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-md);
+    font-family: inherit;
+    background: var(--neutral-white);
+    color: var(--neutral-darker);
+    transition: all var(--transition-speed-fast);
+    box-shadow: var(--shadow-light); /* Subtle shadow on inputs */
+    box-sizing: border-box;
+}
+
+/* Style for readonly inputs to visually indicate non-editability */
+.form-input[readonly] {
+    background-color: var(--neutral-light); /* Lighter background */
+    cursor: default; /* Default cursor */
+    border-color: var(--neutral-medium); /* Consistent border */
+    box-shadow: none; /* No shadow on readonly */
+    opacity: 0.9; /* Slightly faded */
+}
+
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
 .form-input:focus, .form-textarea:focus {
     outline: none;
     border-color: var(--primary-medium);
-    box-shadow: 0 0 0 3px rgba(0, 96, 178, 0.2);
+    box-shadow: 0 0 0 4px rgba(0, 96, 178, 0.2), var(--shadow-md); /* Stronger focus shadow */
+    transform: translateY(-1px);
 }
 
-.password-reset-link {
-    display: block;
-    text-align: right;
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
+.form-input:valid:not(:placeholder-shown),
+.form-textarea:valid:not(:placeholder-shown) {
+    border-color: var(--success);
+}
+
+.form-input:invalid:not(:placeholder-shown),
+.form-textarea:invalid:not(:placeholder-shown) {
+    border-color: var(--error);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--neutral-dark);
+    opacity: 0.8;
+}
+
+/* Error Messages */
+.error-message {
+    color: var(--error);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    margin-top: var(--space-sm);
+    min-height: 20px; /* Reserve space to prevent layout shifting */
+}
+
+/* Helper Text */
+.helper-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    font-size: var(--font-size-sm);
+    color: var(--neutral-dark);
+    font-style: italic;
+}
+
+.helper-icon {
+    font-size: var(--font-size-md);
     color: var(--primary-medium);
-    text-decoration: none;
 }
 
-.login-actions {
-    margin-top: 2rem;
+/* Participants Counter */
+.participants-counter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--primary-ultralight);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--primary-dark);
+    font-weight: 500;
+    border: 1px solid rgba(0, 96, 178, 0.1);
 }
 
-.login-button, .submit-button, .secondary-button, .availability-button, .update-time-button, .logout-button {
-    padding: 0.875rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-    position: relative;
+.counter-icon {
+    font-size: var(--font-size-md);
 }
 
-.login-button, .submit-button, .update-time-button {
-    width: 100%;
-    background-color: var(--primary-medium);
+/* Time Fields Layout */
+.time-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+/* AVAILABILITY CHECK SECTION WITH CENTERED BUTTON */
+.availability-section {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: linear-gradient(135deg, var(--primary-ultralight) 0%, var(--neutral-light) 100%);
+    border-radius: var(--border-radius-xl); /* Larger radius */
+    border: 2px solid var(--primary-medium);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow-md); /* Add shadow */
+}
+
+.availability-button {
+    background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-dark) 100%);
     color: var(--neutral-white);
+    border: none;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all var(--transition-speed-normal);
+    /* Ensure flexbox for centering content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+    margin: 0 auto;
+    position: relative; /* Added for spinner positioning */
+    overflow: hidden; /* Added for spinner positioning */
 }
 
-.login-button:hover, .submit-button:hover, .update-time-button:hover {
-    background-color: var(--primary-dark);
+.availability-button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%); /* Enhanced hover effect */
 }
 
-.loading-spinner {
-    display: none;
+.availability-icon {
+    font-size: var(--font-size-lg);
+}
+
+/* New: Availability Message Styling */
+.availability-message {
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-md);
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    display: none; /* Hidden by default */
+}
+
+.availability-message.success-message {
+    background-color: #e6ffe6; /* Light green */
+    color: var(--success);
+    border: 1px solid var(--success);
+}
+
+.availability-message.error-message {
+    background-color: #ffe6e6; /* Light red */
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+.availability-message.info-message { /* Added info message style */
+    background-color: var(--primary-ultralight);
+    color: var(--primary-dark);
+    border: 1px solid var(--primary-light);
+}
+
+/* Spinner for Availability Button */
+.availability-button .loading-spinner {
+    display: none; /* Hidden by default */
     width: 20px;
     height: 20px;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-top-color: #fff;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
-    position: absolute;
+    animation: spin 0.8s linear infinite;
+    position: absolute; /* Position absolutely within its parent */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); /* Center it precisely */
 }
 
-@keyframes spin {
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+.availability-button.loading .button-text,
+.availability-button.loading .availability-icon {
+    opacity: 0; /* Hide text and icon when loading */
+    transition: opacity 0.2s ease-out; /* Smooth transition for hiding */
 }
 
-.login-button.loading .button-text, .submit-button.loading .button-text {
+.availability-button.loading .loading-spinner {
+    display: block; /* Show spinner when loading */
+}
+
+/* Ensure button content is relative for absolute spinner positioning */
+.availability-button .button-content {
+    position: relative; /* Make this the positioning context for the spinner */
+    display: flex; /* Keeps icon and text aligned when visible */
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    width: 100%; /* Ensure content takes full width for centering */
+    height: 100%; /* Ensure content takes full height for centering */
+}
+
+/* General button loading state (if not already defined for .submit-button) */
+.submit-button .button-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.submit-button.loading .button-text {
     opacity: 0;
 }
 
-.login-button.loading .loading-spinner, .submit-button.loading .loading-spinner {
+.submit-button.loading .loading-spinner {
     display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.login-error-panel, .error-panel {
-    display: flex;
+
+/* Styles for Availability Results Display */
+.availability-results {
+    margin-top: var(--space-lg);
+    width: 100%;
+    padding: var(--space-md);
+    background-color: var(--neutral-light); /* Light background for results */
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--neutral-medium);
+    box-shadow: var(--shadow-light);
+    display: flex; /* Use flex to center content */
+    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    margin: 1rem 2rem;
-    border-radius: 4px;
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+    min-height: 120px; /* Give it some height even when empty */
+    justify-content: center;
+    display: none; /* Hidden by default, shown only when alternative slots are needed */
 }
 
-.scheduler-header {
-    padding: 1rem 2rem;
-    background: var(--neutral-white);
-    border-bottom: 1px solid var(--neutral-medium);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.logout-button {
-    background-color: var(--error);
-    color: white;
-}
-
-.welcome-text {
-    margin-right: 1rem;
-}
-
-.app-footer {
+/* This rule was duplicated, removed the duplicate here */
+/* .availability-message {
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--space-md);
+    font-size: var(--font-size-md);
+    font-weight: 500;
     text-align: center;
-    padding: 1rem;
-    background-color: var(--primary-dark);
-    color: var(--neutral-light);
+    width: 100%;
+} */
+
+
+.slots-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive grid */
+    gap: var(--space-md);
+    width: 100%;
+    padding: var(--space-sm);
+    max-height: 300px; /* Limit height and add scroll */
+    overflow-y: auto;
+    border-top: 1px solid var(--neutral-medium); /* Separator from message */
+    padding-top: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.time-slot {
+    background-color: var(--neutral-white);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: all var(--transition-speed-fast);
+    border: 2px solid var(--neutral-medium);
+    text-align: center;
+    font-size: var(--font-size-sm);
+    box-shadow: var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px; /* Ensure consistent height */
+    position: relative;
+    overflow: hidden; /* For pseudo-elements */
+}
+
+.time-slot:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.time-slot.available {
+    border-color: var(--success);
+    color: var(--success);
+    background-color: #e6ffe6; /* Light success background */
+}
+
+.time-slot.available:hover {
+    background-color: #d9f2d9; /* Darker green on hover */
+}
+
+.time-slot.conflict {
+    border-color: var(--warning);
+    color: var(--warning);
+    background-color: #fff9e6; /* Light warning background */
+    cursor: help; /* Indicate it's not fully available */
+}
+
+.time-slot.conflict:hover {
+    background-color: #f2e9d9; /* Darker yellow on hover */
+}
+
+.time-slot.selected {
+    background-color: var(--primary-medium);
+    color: var(--neutral-white);
+    border-color: var(--primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.02);
+    font-weight: 600;
+}
+
+.time-slot.selected small { /* Make small text white if selected */
+    color: var(--neutral-white) !important;
+}
+
+.time-slot .slot-time {
+    font-weight: 600;
+    font-size: var(--font-size-md);
+}
+
+.time-slot small {
+    font-size: var(--font-size-xs);
+    margin-top: var(--space-xs);
+}
+
+.no-slots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-lg);
+    color: var(--neutral-dark);
+}
+
+.no-slots-icon {
+    font-size: 3rem;
+    color: var(--error);
+    margin-bottom: var(--space-md);
+}
+
+.no-slots-message {
+    color: var(--error);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+}
+
+.next-slot-info {
+    color: var(--neutral-darker);
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-sm);
+}
+
+.suggestion {
+    color: var(--neutral-dark);
+    font-size: var(--font-size-sm);
+    font-style: italic;
+}
+
+/* Keyframes for spin animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* UPDATE TIME SLOT SECTION */
+.update-slot-section {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--primary-ultralight);
+    border-radius: var(--border-radius-xl);
+    border: 1px solid var(--primary-medium);
+    text-align: center;
+    animation: fadeIn 0.4s ease-out;
+    width: 100%;
+    box-shadow: var(--shadow-md);
+}
+
+.selected-slot-info {
+    margin-bottom: var(--space-md);
+}
+
+.selected-slot-label {
+    font-weight: 500;
+    color: var(--neutral-dark);
+    margin-right: var(--space-sm);
+}
+
+.selected-slot-time {
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: var(--font-size-lg);
+}
+
+.update-time-button {
+    background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-dark) 100%);
+    color: var(--neutral-white);
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: 0 auto;
+    box-shadow: var(--shadow-sm);
+}
+
+.update-time-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+}
+
+.update-icon {
+    font-size: var(--font-size-md);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255,255,255,0.3); /* Lighter border for contrast */
+    border-top-color: var(--neutral-white); /* White top for spinner on dark buttons */
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite; /* Slightly faster spin */
+    margin: 0; /* Remove margin for inline use */
+    display: none; /* Hidden by default */
+    flex-shrink: 0;
+}
+
+/* This keyframe is already defined above, keeping for redundancy check */
+/* @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} */
+
+/* FIXED FORM ACTIONS - PROPER BUTTON ALIGNMENT */
+.form-actions {
+    text-align: center;
+    padding-top: var(--space-xxl); /* More padding above buttons */
+    margin-top: var(--space-xxl);
+    border-top: 1px solid var(--neutral-medium);
+    display: flex;
+    justify-content: center;
+}
+
+/* ENHANCED BUTTON STYLES - PROPERLY ALIGNED */
+.submit-button {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+    color: var(--neutral-white);
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--font-size-lg); /* Larger font */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed-normal);
+    text-transform: uppercase;
+    letter-spacing: 1.5px; /* More letter spacing */
+    box-shadow: var(--shadow-md);
+    min-width: 250px; /* Slightly wider button */
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.submit-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25), /* Stronger shimmer */
+        transparent
+    );
+    transition: all var(--transition-speed-slow); /* Slower shimmer transition */
+}
+
+.submit-button:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.submit-button:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-dark) 100%);
+}
+
+.submit-button:active {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--neutral-dark);
+    box-shadow: var(--shadow-light);
+}
+
+.button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    position: relative;
+}
+
+/* This rule is now redundant as it's defined specifically for .submit-button .button-text above
+.submit-button.loading .button-text {
+    opacity: 0;
+}
+*/
+
+/* This rule is now redundant as it's defined specifically for .submit-button .loading-spinner above
+.submit-button.loading .loading-spinner {
+    display: block;
+    position: absolute;
+}
+*/
+
+.secondary-button {
+    background: var(--neutral-white);
+    color: var(--primary-dark);
+    border: 2px solid var(--primary-dark);
+    border-radius: var(--border-radius-md);
+    padding: var(--space-md) var(--space-xl); /* Increased padding */
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-speed-fast);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    box-shadow: var(--shadow-sm);
+}
+
+.secondary-button:hover {
+    background: var(--primary-dark);
+    color: var(--neutral-white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Result Panels */
+.result-panel {
+    margin-top: var(--space-xxl); /* More space above */
+    padding: var(--space-xxl); /* More padding */
+    border-radius: var(--border-radius-xl); /* Larger radius */
+    text-align: center;
+    animation: slideIn 0.6s ease-out forwards; /* Slower and stays */
+    box-shadow: var(--shadow-lg); /* Prominent shadow */
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-panel {
+    background: linear-gradient(135deg, var(--primary-ultralight) 0%, #F0F8FF 100%);
+    border: 2px solid var(--success);
+}
+
+.error-panel {
+    background: linear-gradient(135deg, #FDEAEA 0%, #FEF5F5 100%);
+    border: 2px solid var(--error);
+}
+
+.panel-icon {
+    font-size: 4rem; /* Larger icon */
+    margin-bottom: var(--space-md);
+    animation: bounce 0.8s ease-in-out; /* Slower bounce */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); } /* More pronounced bounce */
+    60% { transform: translateY(-7px); }
+}
+
+.success-icon {
+    color: var(--success);
+}
+
+.error-icon {
+    color: var(--error);
+}
+
+.panel-title {
+    font-size: var(--font-size-xxl); /* Larger title */
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+}
+
+.success-panel .panel-title {
+    color: var(--success);
+}
+
+.error-panel .panel-title {
+    color: var(--error);
+}
+
+.meeting-details {
+    background: var(--neutral-white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-lg) var(--space-xl); /* Increased padding */
+    margin-bottom: var(--space-xl); /* More space */
+    box-shadow: var(--shadow-md); /* Clearer shadow */
+    text-align: left;
+    border: 1px solid var(--neutral-medium);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px dashed var(--neutral-medium); /* Dashed border for softer look */
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: var(--font-size-md);
+}
+
+.detail-value {
+    font-weight: 400;
+    color: var(--neutral-darker);
+    text-align: right;
+    font-size: var(--font-size-md);
+}
+
+.participants-list {
+    margin-top: var(--space-md);
+}
+
+.participants-list h5 {
+    color: var(--primary-dark);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+}
+
+.participant-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--neutral-light);
+}
+
+.participant-entry:last-child {
+    border-bottom: none;
+}
+
+.participant-email {
+    font-size: var(--font-size-md);
+    color: var(--neutral-darker);
+}
+
+.error-message-text {
+    color: var(--error);
+    margin-bottom: var(--space-lg);
+    font-weight: 500;
+}
+
+/* Footer */
+.app-footer {
+    background: var(--primary-dark);
+    color: var(--neutral-white);
+    padding: var(--space-md) var(--space-xl); /* More padding */
+    text-align: center;
+    flex-shrink: 0;
+    border-top: 4px solid var(--primary-medium); /* Accent line */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: var(--font-size-sm);
+    opacity: 0.95;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .app-main {
+        padding: var(--space-xxxl) var(--space-md);
+    }
+    .login-container, .scheduler-container {
+        margin: var(--space-xl) auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .company-name {
+        font-size: var(--font-size-xxl);
+    }
+
+    .app-title {
+        font-size: var(--font-size-xl);
+    }
+
+    .card-title {
+        font-size: var(--font-size-xl);
+    }
+
+    .time-fields {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .submit-button {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .slots-container {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: var(--space-sm);
+    }
+
+    .login-container {
+        min-height: 60vh; /* Adjust for smaller screens */
+    }
+
+    .scheduler-header {
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: center;
+    }
+    .login-card {
+        margin: var(--space-lg) 0;
+        width: 95%;
+    }
+    .scheduler-container {
+        margin: var(--space-lg) auto;
+        width: 95%;
+    }
+    .form-section {
+        padding-bottom: var(--space-lg);
+        margin-bottom: var(--space-lg);
+    }
+    .app-header {
+        padding: var(--space-md) var(--space-lg);
+    }
+    .logo-container {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+    .company-tagline {
+        margin-left: 0;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-header {
+        padding: var(--space-md);
+    }
+
+    .company-logo {
+        height: 40px;
+        margin-right: 0;
+    }
+    .company-name {
+        font-size: var(--font-size-xl);
+    }
+    .company-tagline {
+        font-size: var(--font-size-xs);
+    }
+
+    .app-title {
+        font-size: var(--font-size-md);
+    }
+
+    .app-description {
+        font-size: var(--font-size-sm);
+    }
+
+    .card-header,
+    .meeting-form {
+        padding: var(--space-lg);
+    }
+
+    .form-input,
+    .form-textarea {
+        padding: var(--space-sm);
+        font-size: var(--font-size-sm);
+    }
+
+    .result-panel {
+        padding: var(--space-lg);
+    }
+
+    .availability-section {
+        padding: var(--space-md);
+    }
+
+    .slots-container {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+
+    .login-form {
+        padding: var(--space-lg);
+    }
+
+    .login-header {
+        padding: var(--space-lg);
+    }
+    .login-icon {
+        font-size: 2.5rem;
+    }
+    .login-title {
+        font-size: var(--font-size-xl);
+    }
+    .login-subtitle {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Accessibility Focus States (Ensures clear visual focus for keyboard navigation) */
+.form-input:focus,
+.form-textarea:focus,
+.submit-button:focus,
+.secondary-button:focus,
+.availability-button:focus,
+.time-slot:focus,
+.update-time-button:focus,
+.login-button:focus,
+.logout-button:focus,
+.password-reset-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 140, 255, 0.4); /* Brighter primary blue focus ring */
+    border-color: var(--primary-light);
+}
+
+/* Print Styles */
+@media print {
+    .app-header {
+        background: none !important;
+        color: var(--primary-dark) !important;
+        text-shadow: none !important;
+        border-bottom: none !important;
+    }
+    .app-header::before {
+        display: none !important;
+    }
+
+    /* Remove global banner for printing */
+    body {
+        background-image: none !important;
+        background-color: var(--neutral-white) !important;
+    }
+
+    .card-container {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+
+    .submit-button,
+    .secondary-button,
+    .availability-button,
+    .update-time-button,
+    .login-button,
+    .logout-button,
+    .password-reset-link {
+        display: none;
+    }
+
+    .availability-section {
+        display: none !important;
+    }
+
+    .login-container {
+        display: none !important;
+    }
+
+    .app-footer {
+        background: none !important;
+        color: var(--neutral-darker) !important;
+        border-top: none !important;
+    }
+}
+/* Add these new styles to your styles.css file */
+
+/* Makes the input wrapper a positioning container for the dropdown */
+.input-wrapper.textarea-wrapper {
+    position: relative;
+}
+
+.autocomplete-container {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Position it right below the textarea */
+    left: 0;
+    right: 0;
+    background-color: var(--neutral-white);
+    border: 1px solid var(--neutral-medium);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000; /* Ensure it appears above other elements */
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.autocomplete-item {
+    padding: var(--space-sm) var(--space-md);
+    cursor: pointer;
+    transition: background-color var(--transition-speed-fast);
+}
+
+.autocomplete-item:hover {
+    background-color: var(--primary-ultralight);
+}
+
+.autocomplete-item .item-name {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.autocomplete-item .item-email {
+    font-size: var(--font-size-sm);
+    color: var(--neutral-dark);
 }
