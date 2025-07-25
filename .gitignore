@@ -1,0 +1,36 @@
+# Dependency directories
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables - VERY IMPORTANT
+# This line prevents your secret keys from ever being uploaded to GitHub.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE config files
+.idea/
+.vscode/
+
+# macOS files
+.DS_Store
+
+# Sensitive security files
+# This is an extra layer of protection for your SSL keys.
+src/security/private.key
+src/security/certificate.cer
